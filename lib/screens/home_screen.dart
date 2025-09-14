@@ -1,45 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:navigate_route/provider/data_providers.dart';
 import 'package:navigate_route/screens/detail_screen.dart';
-import 'package:navigate_route/screens/third_screen.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
-  static String routeName = '/home';
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final message = context.watch<DataProvider>().message;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Home Screen')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () async {
-                final result = await Navigator.pushNamed(
-                  context,
-                  DetailScreen.routeName,
-
-                  arguments: {
-                    'itemId': 'Peter Denman',
-                    'message': 'smart person',
-                  },
-                );
-                print("ได้ค่ากลับมาคือ $result");
-              },
-              child: const Text('Go to Detail Screen.'),
+            Text(
+              message.isEmpty ? "" : message,
+              style: const TextStyle(fontSize: 16),
             ),
             ElevatedButton(
-              onPressed: () async {
-                final result = await Navigator.pushNamed(
-                  context,
-                  ThirdScreen.routeName,
-
-                  arguments: {'itemId': 'Third Item', 'message': 'black'},
+              onPressed: () {
+                context.read<DataProvider>().setMessage(
+                  'this is data from home screen',
                 );
-                print("ได้ค่ากลับมาคือ $result");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DetailScreen()),
+                );
               },
-              child: const Text('Go to Third Screen.'),
+              child: Text('Go to Detail Screen'),
             ),
           ],
         ),

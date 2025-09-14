@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:navigate_route/provider/data_providers.dart';
 import 'package:navigate_route/screens/detail_screen.dart';
 import 'package:navigate_route/screens/home_screen.dart';
-import 'package:navigate_route/screens/third_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => DataProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,13 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
 
-      initialRoute: HomeScreen.routeName,
-
-      routes: {
-        HomeScreen.routeName: (context) => const HomeScreen(),
-        DetailScreen.routeName: (context) => const DetailScreen(),
-        ThirdScreen.routeName: (context) => const ThirdScreen(),
-      },
+      home: const HomeScreen(),
     );
   }
 }
