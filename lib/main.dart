@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:navigate_route/provider/data_providers.dart';
-import 'package:navigate_route/screens/detail_screen.dart';
 import 'package:navigate_route/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => DataProvider(),
+      create: (context) => DataProvider(), 
       child: const MyApp(),
     ),
   );
